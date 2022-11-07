@@ -19,7 +19,7 @@ function HomeScreen({ navigation }) {
 
 
             <TouchableHighlight
-                onPress={() => navigation.navigate("Tabs")}
+                onPress={() => navigation.navigate("Porchfest Pro")}
                 activeOpacity={0.6}
                 underlayColor='red'
             >
@@ -85,7 +85,7 @@ function FavoritesScreen() {
 function Tabs() {
     return (
 
-        <Tab.Navigator >
+        <Tab.Navigator screenOptions = {{ headerShown: false}} >
             <Tab.Screen name="About" component={AboutScreen} />
             <Tab.Screen name="Performers" component={PerformersScreen} />
             <Tab.Screen name="Schedule" component={ScheduleScreen} />
@@ -105,7 +105,7 @@ export default function Navigation() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Home'>
                 <Stack.Screen name='Home' component={HomeScreen} />
-                <Stack.Screen name = 'Tabs' component={Tabs}/>
+                <Stack.Screen name = 'Porchfest Pro' component={Tabs}/>
             </Stack.Navigator>
         </NavigationContainer>
 
