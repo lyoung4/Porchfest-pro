@@ -68,9 +68,12 @@ function MapScreen() {
     const [region, setRegion] = useState({
         latitude: 42.450471189820824,
         longitude: -76.49828872162905,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.021100,
+        longitudeDelta: 0.01314,
     });
+
+    // console.log("latitudeDelta: " + region.latitudeDelta)
+    // console.log("longitudeDelta: " + region.longitudeDelta)
 
     const onRegionChange = (region) => {
         setRegion(region)
@@ -83,7 +86,6 @@ function MapScreen() {
             onRegionChange={onRegionChange}
             />
         </View>
-        
     );
 }
 function FavoritesScreen() {
