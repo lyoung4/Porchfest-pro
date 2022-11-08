@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import { Text, View, TouchableHighlight } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -63,13 +63,27 @@ function ScheduleScreen() {
     );
 }
 function MapScreen() {
-    return (
-        <View style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center'
-        }}>
-            <Text>Map!</Text>
 
+    // 42.450471189820824, -76.49828872162905 --> lat/long of Fall Creek Area
+    const [region, setRegion] = useState({
+        latitude: 42.450471189820824,
+        longitude: -76.49828872162905,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    });
+
+    const onRegionChange = (region) => {
+        setRegion(region)
+    }
+
+    return (
+        <View>
+            <MapView style={Styles.map}
+            region={region}
+            onRegionChange={onRegionChange}
+            />
         </View>
+        
     );
 }
 function FavoritesScreen() {
