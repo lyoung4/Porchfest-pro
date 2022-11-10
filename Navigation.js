@@ -6,7 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MapView from 'react-native-maps';
 import Styles from './Styles.js';
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +30,7 @@ function HomeScreen({ navigation }) {
 
     );
 }
+
 function AboutScreen() {
     return (
         <View style={{
@@ -42,7 +42,20 @@ function AboutScreen() {
 
     );
 }
+
 function PerformersScreen() {
+    //This will be used to render and show only the name of the performer
+    const renderPerfomer = (performer) => (
+        <View style={styles.item}>
+          <Text style={styles.title}>{performer.item.name}</Text>
+        </View >
+      );
+
+    //once the artist table is filled out with data this code will be used to create a list 
+    //<FlatList
+    //    data={artist}
+    //    renderPerformer={renderPerformer} />
+
     return (
         <View style={{
             flex: 1, justifyContent: 'center', alignItems: 'center'
@@ -52,6 +65,7 @@ function PerformersScreen() {
         </View>
     );
 }
+
 function ScheduleScreen() {
     return (
         <View style={{
@@ -62,6 +76,7 @@ function ScheduleScreen() {
         </View>
     );
 }
+
 function MapScreen() {
 
     // 42.450471189820824, -76.49828872162905 --> lat/long of Fall Creek Area
@@ -88,6 +103,7 @@ function MapScreen() {
         </View>
     );
 }
+
 function FavoritesScreen() {
     return (
         <View style={{
@@ -114,8 +130,6 @@ function Tabs() {
     )
 
 }
-
-
 
 export default function Navigation() {
     return (
