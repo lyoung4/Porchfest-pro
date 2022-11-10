@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Styles from './Styles.js';
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +29,7 @@ function HomeScreen({ navigation }) {
 
     );
 }
+
 function AboutScreen() {
     return (
         <View style={{
@@ -41,7 +41,20 @@ function AboutScreen() {
 
     );
 }
+
 function PerformersScreen() {
+    //This will be used to render and show only the name of the performer
+    const renderPerfomer = (performer) => (
+        <View style={styles.item}>
+          <Text style={styles.title}>{performer.item.name}</Text>
+        </View >
+      );
+
+    //once the artist table is filled out with data this code will be used to create a list 
+    //<FlatList
+    //    data={artist}
+    //    renderPerformer={renderPerformer} />
+
     return (
         <View style={{
             flex: 1, justifyContent: 'center', alignItems: 'center'
@@ -51,6 +64,7 @@ function PerformersScreen() {
         </View>
     );
 }
+
 function ScheduleScreen() {
     return (
         <View style={{
@@ -61,6 +75,7 @@ function ScheduleScreen() {
         </View>
     );
 }
+
 function MapScreen() {
     return (
         <View style={{
@@ -71,6 +86,7 @@ function MapScreen() {
         </View>
     );
 }
+
 function FavoritesScreen() {
     return (
         <View style={{
@@ -97,8 +113,6 @@ function Tabs() {
     )
 
 }
-
-
 
 export default function Navigation() {
     return (
