@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableHighlight, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MapView from 'react-native-maps';
 import Styles from './Styles.js';
+//import Performers from './performers.json';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,28 +44,43 @@ function AboutScreen() {
     );
 }
 
+
+
 function PerformersScreen() {
+
+    const performerData = require('./performers.json');
+    //const [data, setData] = useState(performerData);
+
+    const _onPressButton = (name, time, address, description) => {
+        alert('Performer: ' + name + '\n' + 'Time: ' + time + '\n' + 'Address: ' + address + '\n' + 'Description: ' + description);
+    }
     //This will be used to render and show only the name of the performer
-    const renderPerfomer = (performer) => (
-        <View style={styles.item}>
-          <Text style={styles.title}>{performer.item.name}</Text>
-        </View >
-      );
+    const renderPerformer = data => {
+        return (
+            <TouchableHighlight
+                onPress={() => _onPressButton(data.item.name, data.item.time, data.item.address, data.item.description)}
+                underlayColor="yellow">
+                <Text style={Styles.title}>{data.item.name}</Text>
+            </TouchableHighlight>
+        );
+    };
+
 
     //once the artist table is filled out with data this code will be used to create a list 
-    //<FlatList
-    //    data={artist}
-    //    renderPerformer={renderPerformer} />
+
 
     return (
         <View style={{
             flex: 1, justifyContent: 'center', alignItems: 'center'
         }}>
-            <Text>Performers!</Text>
+            <FlatList
+                data={performerData}
+                renderItem={renderPerformer} />
 
         </View>
     );
 }
+
 
 function ScheduleScreen() {
     return (
@@ -97,8 +113,8 @@ function MapScreen() {
     return (
         <View>
             <MapView style={Styles.map}
-            region={region}
-            onRegionChange={onRegionChange}
+                region={region}
+                onRegionChange={onRegionChange}
             />
         </View>
     );
@@ -118,7 +134,7 @@ function FavoritesScreen() {
 function Tabs() {
     return (
 
-        <Tab.Navigator screenOptions = {{ headerShown: false}} >
+        <Tab.Navigator screenOptions={{ headerShown: false }} >
             <Tab.Screen name="About" component={AboutScreen} />
             <Tab.Screen name="Performers" component={PerformersScreen} />
             <Tab.Screen name="Schedule" component={ScheduleScreen} />
@@ -136,7 +152,7 @@ export default function Navigation() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Home'>
                 <Stack.Screen name='Home' component={HomeScreen} />
-                <Stack.Screen name = 'Porchfest Pro' component={Tabs}/>
+                <Stack.Screen name='Porchfest Pro' component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
 
