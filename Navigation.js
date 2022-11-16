@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MapView from 'react-native-maps';
 import Styles from './Styles.js';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 //import Performers from './performers.json';
 
 const Stack = createNativeStackNavigator();
@@ -44,11 +45,12 @@ function AboutScreen() {
     );
 }
 
-
-
 function PerformersScreen() {
   const performerData = require("./performers.json");
-  //const [data, setData] = useState(performerData);
+
+  const onPressFavorite = (data) => {
+    console.log("favorited: " + data.item.name);
+  };
 
   const _onPressButton = (data) => {
     alert(
@@ -65,21 +67,30 @@ function PerformersScreen() {
         data.item.description
     );
   };
+
   //This will be used to render and show only the name of the performer
   const renderPerformer = (data) => {
     return (
-      <View style={Styles.list}>
-        <TouchableOpacity onPress={() => _onPressButton(data)}>
-          <Text style={{ color: "white", fontSize: "25", fontWeight: "bold" }}>
-            {data.item.name}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <>
+        <View style={Styles.list}>
+          <TouchableOpacity onPress={() => onPressFavorite(data)}>
+            <Ionicons
+              name={"star"}
+              size={35}
+              color="white"
+              style={{ marginLeft: -17 }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => _onPressButton(data)}>
+            <Text style={Styles.performer}>{data.item.name}</Text>
+          </TouchableOpacity>
+        </View>
+      </>
     );
   };
 
   //once the artist table is filled out with data this code will be used to create a list
-
   return (
     <View style={{ flex: 1 }}>
       <FlatList data={performerData} renderItem={renderPerformer} />
