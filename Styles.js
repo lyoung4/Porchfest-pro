@@ -24,15 +24,11 @@ export default styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
   },
-  title: {
-    borderWidth: 2,
-    color: "white",
-    padding: 10,
+  list: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 1,
     backgroundColor: "#ffa07a",
-    fontSize: 15,
     alignItems: "center",
-    textAlign: "center",
-    justifyContent: "center",
-    marginTop: 0
 }
 });

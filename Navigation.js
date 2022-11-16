@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableHighlight, FlatList } from 'react-native';
+import { Text, View, TouchableHighlight, TouchableOpacity, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -47,50 +47,58 @@ function AboutScreen() {
 
 
 function PerformersScreen() {
+  const performerData = require("./performers.json");
+  //const [data, setData] = useState(performerData);
 
-    const performerData = require('./performers.json');
-    //const [data, setData] = useState(performerData);
-
-    const _onPressButton = (name, time, address, description) => {
-        alert('Performer: ' + name + '\n' + 'Time: ' + time + '\n' + 'Address: ' + address + '\n' + 'Description: ' + description);
-    }
-    //This will be used to render and show only the name of the performer
-    const renderPerformer = data => {
-        return (
-            <TouchableHighlight
-                onPress={() => _onPressButton(data.item.name, data.item.time, data.item.address, data.item.description)}
-                underlayColor="yellow">
-                <Text style={Styles.title}>{data.item.name}</Text>
-            </TouchableHighlight>
-        );
-    };
-
-
-    //once the artist table is filled out with data this code will be used to create a list 
-
-
-    return (
-        <View style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center'
-        }}>
-            <FlatList
-                data={performerData}
-                renderItem={renderPerformer} />
-
-        </View>
+  const _onPressButton = (data) => {
+    alert(
+      "Performer: " +
+        data.item.name +
+        "\n" +
+        "Time: " +
+        data.item.time +
+        "\n" +
+        "Address: " +
+        data.item.address +
+        "\n" +
+        "Description: " +
+        data.item.description
     );
+  };
+  //This will be used to render and show only the name of the performer
+  const renderPerformer = (data) => {
+    return (
+      <View style={Styles.list}>
+        <TouchableOpacity onPress={() => _onPressButton(data)}>
+          <Text style={{ color: "white", fontSize: "25", fontWeight: "bold" }}>
+            {data.item.name}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  //once the artist table is filled out with data this code will be used to create a list
+
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList data={performerData} renderItem={renderPerformer} />
+    </View>
+  );
 }
 
-
 function ScheduleScreen() {
-    return (
-        <View style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center'
-        }}>
-            <Text>Schedule!</Text>
-
-        </View>
-    );
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>Schedule!</Text>
+    </View>
+  );
 }
 
 function MapScreen() {
