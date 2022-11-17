@@ -40,4 +40,19 @@ export default styles = StyleSheet.create({
     marginLeft: 15,
     textAlign: 'center',
   },
+  favoritedList: {
+    flex: 1,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 1,
+    backgroundColor: "#6FD6F6", // original color: #ffa07a
+    alignItems: "center",
+  },
+  favorited: {
+    color: "white",
+    fontSize: "25",
+    fontWeight: "900",
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
 });
