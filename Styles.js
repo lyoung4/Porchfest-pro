@@ -23,5 +23,16 @@ export default styles = StyleSheet.create({
   map:{
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
-  }
+  },
+  title: {
+    borderWidth: 2,
+    color: "white",
+    padding: 10,
+    backgroundColor: "#ffa07a",
+    fontSize: 15,
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    marginTop: 0
+}
 });
