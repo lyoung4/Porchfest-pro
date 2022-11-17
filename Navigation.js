@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View, TouchableHighlight, TouchableOpacity, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, TouchableHighlight, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -45,11 +45,45 @@ function AboutScreen() {
     );
 }
 
-function PerformersScreen() {
+function PerformersScreen({ navigation }) {
   const performerData = require("./performers.json");
+  const [favorites, setFavorites] = useState([]); // an array of performers that have been favorited
+  // const [isFavorited, setIsFavorited] = useState();
 
-  const onPressFavorite = (data) => {
-    console.log("favorited: " + data.item.name);
+  useEffect(()=> {
+    console.log('useEffect triggered when favorites state is updated')
+    console.log(favorites.length)
+  }, [favorites]);
+
+  const onPressFavorite = (data) => { // if the star is clicked, add favorited item to the array 
+    if (data.item.isFavorited != true){
+      data.item.isFavorited = true;
+      // setIsFavorited(true);
+      alert('favorited performer: ' + data.item.name)
+      var tempArr = [];
+
+      tempArr = favorites.slice();
+        tempArr.push({
+          "name": data.item.name,
+          "time": data.item.time,
+          "address": data.item.address,
+          "description": data.item.description,
+          "latlng": { "latitude": data.item.latlng.latitude, "longitude": data.item.latlng.longitude },
+          "isFavorited": data.item.isFavorited
+        });
+        setFavorites(tempArr);
+
+    }
+    else { // if star is clicked again, the item is unfavorited and removed from the array
+      data.item.isFavorited = false;
+      // setIsFavorited(false);
+      alert('unfavorited performer: ' + data.item.name)
+      var newArr = [];
+      newArr = favorites.slice();
+      newArr = newArr.filter(performer => performer.name != data.item.name)
+
+      setFavorites(newArr);
+    }
   };
 
   const _onPressButton = (data) => {
@@ -68,7 +102,6 @@ function PerformersScreen() {
     );
   };
 
-  //This will be used to render and show only the name of the performer
   const renderPerformer = (data) => {
     return (
       <>
@@ -77,7 +110,7 @@ function PerformersScreen() {
             <Ionicons
               name={"star"}
               size={35}
-              color="white"
+              color={data.item.isFavorited ? "gold" : "white"}
               style={{ marginLeft: -17 }}
             />
           </TouchableOpacity>
@@ -90,7 +123,6 @@ function PerformersScreen() {
     );
   };
 
-  //once the artist table is filled out with data this code will be used to create a list
   return (
     <View style={{ flex: 1 }}>
       <FlatList data={performerData} renderItem={renderPerformer} />
@@ -152,16 +184,13 @@ function FavoritesScreen() {
 
 function Tabs() {
     return (
-
         <Tab.Navigator screenOptions={{ headerShown: false }} >
             <Tab.Screen name="About" component={AboutScreen} />
             <Tab.Screen name="Performers" component={PerformersScreen} />
             <Tab.Screen name="Schedule" component={ScheduleScreen} />
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Favorites" component={FavoritesScreen} />
-
         </Tab.Navigator>
-
     )
 
 }
@@ -174,16 +203,5 @@ export default function Navigation() {
                 <Stack.Screen name='Porchfest Pro' component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
-
-
-        /*<NavigationContainer>
-            <Stack.Navigator initialRouteName='Home'>
-                <Stack.Screen name="Home"
-                    component={HomeScreen} />
-                <Tab.Screen name="Tabs" component={TabsScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-        */
-
     );
 }
