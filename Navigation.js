@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
-  Button,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -20,7 +19,7 @@ export default function Navigation() {
   const Tab = createBottomTabNavigator();
 
   const performerData = require("./performers.json");
-  const [favorites, setFavorites] = useState([]); // an array of performers that have been favorited
+  const [favorites, setFavorites] = useState([]);
 
   function HomeScreen({ navigation }) {
     return (
@@ -58,23 +57,11 @@ export default function Navigation() {
     );
   }
 
-  function PerformersScreen({ navigation }) {
-    // const [isFavorited, setIsFavorited] = useState();
-
-    // useEffect(()=> {
-    //   // console.log('useEffect triggered when favorites state is updated')
-    //   // console.log(favorites.length)
-    // }, [favorites]);
-    console.log(favorites);
-
+  function PerformersScreen() {
     const onPressFavorite = (data) => {
-      // if the star is clicked, add favorited item to the array
       if (data.item.isFavorited != true) {
         data.item.isFavorited = true;
-        // setIsFavorited(true);
-        alert("favorited performer: " + data.item.name);
         var tempArr = [];
-
         tempArr = favorites.slice();
         tempArr.push({
           name: data.item.name,
@@ -87,16 +74,14 @@ export default function Navigation() {
           },
           isFavorited: data.item.isFavorited,
         });
+        Alert.alert("Favorited " + data.item.name);
         setFavorites(tempArr);
       } else {
-        // if star is clicked again, the item is unfavorited and removed from the array
         data.item.isFavorited = false;
-        // setIsFavorited(false);
-        alert("unfavorited performer: " + data.item.name);
         var newArr = [];
         newArr = favorites.slice();
         newArr = newArr.filter((performer) => performer.name != data.item.name);
-
+        Alert.alert("Unfavorited " + data.item.name);
         setFavorites(newArr);
       }
     };
@@ -120,7 +105,7 @@ export default function Navigation() {
     const renderPerformer = (data) => {
       return (
         <>
-          <View style={Styles.list}>
+          <View style={Styles.performerList}>
             <TouchableOpacity onPress={() => onPressFavorite(data)}>
               <Ionicons
                 name={"star"}
@@ -160,16 +145,12 @@ export default function Navigation() {
   }
 
   function MapScreen() {
-    // 42.450471189820824, -76.49828872162905 --> lat/long of Fall Creek Area
     const [region, setRegion] = useState({
       latitude: 42.450471189820824,
       longitude: -76.49828872162905,
       latitudeDelta: 0.0211,
       longitudeDelta: 0.01314,
     });
-
-    // console.log("latitudeDelta: " + region.latitudeDelta)
-    // console.log("longitudeDelta: " + region.longitudeDelta)
 
     const onRegionChange = (region) => {
       setRegion(region);
@@ -233,6 +214,7 @@ export default function Navigation() {
       </Tab.Navigator>
     );
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
