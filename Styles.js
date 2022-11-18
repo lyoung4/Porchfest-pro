@@ -35,7 +35,7 @@ export default styles = StyleSheet.create({
     },
   performer: {
     color: "white",
-    fontSize: "25",
+    fontSize: 25, 
     fontWeight: "900",
     marginLeft: 15,
     textAlign: 'center',
