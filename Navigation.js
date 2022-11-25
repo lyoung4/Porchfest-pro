@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   FlatList,
+  TextInput,
   Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -58,6 +59,21 @@ export default function Navigation() {
   }
 
   function PerformersScreen() {
+    const [search, setSearch] = useState("");
+    const [performers, setPerformers] = useState(performerData);
+
+    useEffect(() => {
+      // need useEffect to prevent infinite re-rendering
+      if (search.length == 0) {
+        setPerformers(performerData);
+      } else {
+        const result = performers.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setPerformers(result);
+      }
+    }, [search]);
+
     const onPressFavorite = (data) => {
       if (data.item.isFavorited != true) {
         data.item.isFavorited = true;
@@ -125,7 +141,13 @@ export default function Navigation() {
 
     return (
       <View style={{ flex: 1 }}>
-        <FlatList data={performerData} renderItem={renderPerformer} />
+        <TextInput
+          style={Styles.searchbar}
+          onChangeText={setSearch}
+          value={search}
+          placeholder="Search performer"
+        />
+        <FlatList data={performers} renderItem={renderPerformer} />
       </View>
     );
   }
