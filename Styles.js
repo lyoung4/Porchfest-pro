@@ -56,4 +56,18 @@ export default styles = StyleSheet.create({
     height: 40,
     margin: 5,
   },
+  scheduleList: {
+    flex: 1,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 1,
+    backgroundColor: "#6FD6F6",
+    alignItems: "center",
+  },
+  scheduled: {
+    marginTop: 10,
+    fontSize: 15,
+    marginLeft: 10,
+    marginBottom: 5,
+  }
 });

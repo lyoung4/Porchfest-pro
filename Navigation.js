@@ -153,15 +153,65 @@ export default function Navigation() {
   }
 
   function ScheduleScreen() {
+    const [schedule, setSchedule] = useState([
+      {
+        time: "12-1 pm",
+        performers: [],
+      },
+      {
+        time: "1-2 pm",
+        performers: [],
+      },
+      {
+        time: "2-3 pm",
+        performers: [],
+      },
+      {
+        time: "3-4 pm",
+        performers: [],
+      },
+      {
+        time: "4-5 pm",
+        performers: [],
+      },
+      {
+        time: "5-6 pm",
+        performers: [],
+      },
+    ]);
+
+    useEffect(() => {
+      var performersArr = [...schedule];
+      for (var i = 0; i < performersArr.length; i++) {
+        var newArr = performerData.filter((val) => val.time === performersArr[i].time);
+        performersArr[i].performers = newArr.map((performer) => performer.name);
+      }
+      setSchedule(performersArr);
+    }, []);
+
+    const renderSchedule = (data) => {
+      return (
+        <>
+          <View style={Styles.scheduleList}>
+            <Text style={Styles.performer}>{data.item.time}</Text>
+          </View>
+          <View>
+            {data.item.performers.map((ele, index) => (
+              <Text style={Styles.scheduled} key={index}>
+                {"\u2022"} {ele}
+              </Text>
+            ))}
+          </View>
+        </>
+      );
+    };
+
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>Schedule!</Text>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={schedule}
+          renderItem={renderSchedule}
+        />
       </View>
     );
   }
