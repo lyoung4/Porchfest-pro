@@ -32,10 +32,10 @@ export default styles = StyleSheet.create({
     marginHorizontal: 1,
     backgroundColor: "#6FD6F6",
     alignItems: "center",
-    },
+  },
   performer: {
     color: "white",
-    fontSize: 25, 
+    fontSize: 25,
     fontWeight: "bold",
     marginLeft: 15,
     textAlign: "center",
@@ -47,5 +47,13 @@ export default styles = StyleSheet.create({
     marginHorizontal: 1,
     backgroundColor: "#6FD6F6",
     alignItems: "center",
-  }
+  },
+  searchbar: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 9,
+    padding: 10,
+    height: 40,
+    margin: 5,
+  },
 });
