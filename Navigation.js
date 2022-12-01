@@ -7,7 +7,7 @@ import {
   FlatList,
   TextInput,
   Alert,
-  Modal
+  Modal,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -15,7 +15,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MapView from "react-native-maps";
 import Styles from "./Styles.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Marker} from 'react-native-maps';
+import { Marker } from "react-native-maps";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -110,12 +110,11 @@ export default function Navigation() {
     };
 
     const _onPressButton = (data) => {
-        setName(data.item.name);
-        setTime(data.item.time);
-        setAddress(data.item.address);
-        setDescription(data.item.description);
-        setModalVisible(true);
-    
+      setName(data.item.name);
+      setTime(data.item.time);
+      setAddress(data.item.address);
+      setDescription(data.item.description);
+      setModalVisible(true);
     };
 
     const renderPerformer = (data) => {
@@ -149,35 +148,31 @@ export default function Navigation() {
         />
         <FlatList data={performers} renderItem={renderPerformer} />
         <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
-                            }}
-                        >
-                            <View style={Styles.centeredView}>
-                                <View style={Styles.modalView}>
-                                    <Text style={Styles.modalText}>
-                                    {name} </Text>
-                                    <Text style={Styles.modalText}>
-                                    {time} </Text>
-                                    <Text style={Styles.modalText}>
-                                    {address} </Text>
-                                    <Text style={Styles.modalText}>
-                                    {description} </Text>
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={Styles.centeredView}>
+            <View style={Styles.modalView}>
+              <Text style={Styles.modalText}>{name} </Text>
+              <Text style={Styles.modalText}>{time} </Text>
+              <Text style={Styles.modalText}>{address} </Text>
+              <Text style={Styles.modalText}>{description} </Text>
 
-                                    <TouchableHighlight
-                                        style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
-                                        onPress={() => {
-                                            setModalVisible(!modalVisible);
-                                        }}
-                                    >
-                                        <Text style={Styles.textStyle}>Hide Modal</Text>
-                                    </TouchableHighlight>
-                                </View>
-                            </View>
-                        </Modal>
+              <TouchableHighlight
+                style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={Styles.textStyle}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -213,7 +208,9 @@ export default function Navigation() {
     useEffect(() => {
       var performersArr = [...schedule];
       for (var i = 0; i < performersArr.length; i++) {
-        var newArr = performerData.filter((val) => val.time === performersArr[i].time);
+        var newArr = performerData.filter(
+          (val) => val.time === performersArr[i].time
+        );
         performersArr[i].performers = newArr.map((performer) => performer.name);
       }
       setSchedule(performersArr);
@@ -238,10 +235,7 @@ export default function Navigation() {
 
     return (
       <View style={{ flex: 1 }}>
-        <FlatList
-          data={schedule}
-          renderItem={renderSchedule}
-        />
+        <FlatList data={schedule} renderItem={renderSchedule} />
       </View>
     );
   }
@@ -272,10 +266,9 @@ export default function Navigation() {
               coordinate={marker.latlng}
               title={marker.name}
               description={marker.address}
-              pinColor = "blue"
+              pinColor="blue"
             />
           ))}
-
         </MapView>
       </View>
     );
@@ -285,16 +278,16 @@ export default function Navigation() {
     const _onPressButton = (data) => {
       alert(
         "Performer: " +
-        data.item.name +
-        "\n" +
-        "Time: " +
-        data.item.time +
-        "\n" +
-        "Address: " +
-        data.item.address +
-        "\n" +
-        "Description: " +
-        data.item.description
+          data.item.name +
+          "\n" +
+          "Time: " +
+          data.item.time +
+          "\n" +
+          "Address: " +
+          data.item.address +
+          "\n" +
+          "Description: " +
+          data.item.description
       );
     };
 
