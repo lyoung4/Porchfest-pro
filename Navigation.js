@@ -7,6 +7,7 @@ import {
   FlatList,
   TextInput,
   Alert,
+  Modal
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,6 +15,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MapView from "react-native-maps";
 import Styles from "./Styles.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {Marker} from 'react-native-maps';
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -61,6 +63,11 @@ export default function Navigation() {
   function PerformersScreen() {
     const [search, setSearch] = useState("");
     const [performers, setPerformers] = useState(performerData);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [name, setName] = useState("");
+    const [time, setTime] = useState("");
+    const [address, setAddress] = useState("");
+    const [description, setDescription] = useState("");
 
     useEffect(() => {
       // need useEffect to prevent infinite re-rendering
@@ -103,19 +110,12 @@ export default function Navigation() {
     };
 
     const _onPressButton = (data) => {
-      alert(
-        "Performer: " +
-          data.item.name +
-          "\n" +
-          "Time: " +
-          data.item.time +
-          "\n" +
-          "Address: " +
-          data.item.address +
-          "\n" +
-          "Description: " +
-          data.item.description
-      );
+        setName(data.item.name);
+        setTime(data.item.time);
+        setAddress(data.item.address);
+        setDescription(data.item.description);
+        setModalVisible(true);
+    
     };
 
     const renderPerformer = (data) => {
@@ -148,6 +148,36 @@ export default function Navigation() {
           placeholder="Search performer"
         />
         <FlatList data={performers} renderItem={renderPerformer} />
+        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert("Modal has been closed.");
+                            }}
+                        >
+                            <View style={Styles.centeredView}>
+                                <View style={Styles.modalView}>
+                                    <Text style={Styles.modalText}>
+                                    {name} </Text>
+                                    <Text style={Styles.modalText}>
+                                    {time} </Text>
+                                    <Text style={Styles.modalText}>
+                                    {address} </Text>
+                                    <Text style={Styles.modalText}>
+                                    {description} </Text>
+
+                                    <TouchableHighlight
+                                        style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
+                                        onPress={() => {
+                                            setModalVisible(!modalVisible);
+                                        }}
+                                    >
+                                        <Text style={Styles.textStyle}>Hide Modal</Text>
+                                    </TouchableHighlight>
+                                </View>
+                            </View>
+                        </Modal>
       </View>
     );
   }
@@ -217,6 +247,7 @@ export default function Navigation() {
   }
 
   function MapScreen() {
+    const [markers, setMarkers] = useState(performerData);
     const [region, setRegion] = useState({
       latitude: 42.450471189820824,
       longitude: -76.49828872162905,
@@ -234,7 +265,18 @@ export default function Navigation() {
           style={Styles.map}
           region={region}
           onRegionChange={onRegionChange}
-        />
+        >
+          {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.latlng}
+              title={marker.name}
+              description={marker.address}
+              pinColor = "blue"
+            />
+          ))}
+
+        </MapView>
       </View>
     );
   }
@@ -243,16 +285,16 @@ export default function Navigation() {
     const _onPressButton = (data) => {
       alert(
         "Performer: " +
-          data.item.name +
-          "\n" +
-          "Time: " +
-          data.item.time +
-          "\n" +
-          "Address: " +
-          data.item.address +
-          "\n" +
-          "Description: " +
-          data.item.description
+        data.item.name +
+        "\n" +
+        "Time: " +
+        data.item.time +
+        "\n" +
+        "Address: " +
+        data.item.address +
+        "\n" +
+        "Description: " +
+        data.item.description
       );
     };
 
