@@ -8,7 +8,7 @@ import {
   TextInput,
   Alert,
   Modal,
-  Image
+  Image,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -314,11 +314,69 @@ export default function Navigation() {
   function Tabs() {
     return (
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="About" component={AboutScreen} />
-        <Tab.Screen name="Performers" component={PerformersScreen} />
-        <Tab.Screen name="Schedule" component={ScheduleScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Favorites" component={FavoritesScreen} />
+        <Tab.Screen
+          name="About"
+          component={AboutScreen}
+          options={{
+            // tabBarActiveTintColor: "#6FD6F6",
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused
+                ? "information-circle"
+                : "information-circle-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Performers"
+          component={PerformersScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "people" : "people-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Schedule"
+          component={ScheduleScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "ios-calendar" : "ios-calendar-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "map" : "map-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "star" : "star-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
       </Tab.Navigator>
     );
   }
