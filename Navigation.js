@@ -24,6 +24,11 @@ export default function Navigation() {
 
   const performerData = require("./performers.json");
   const [favorites, setFavorites] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [time, setTime] = useState("");
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
 
   function HomeScreen({ navigation }) {
     return (
@@ -64,11 +69,6 @@ export default function Navigation() {
   function PerformersScreen() {
     const [search, setSearch] = useState("");
     const [performers, setPerformers] = useState(performerData);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [name, setName] = useState("");
-    const [time, setTime] = useState("");
-    const [address, setAddress] = useState("");
-    const [description, setDescription] = useState("");
 
     useEffect(() => {
       // need useEffect to prevent infinite re-rendering
@@ -163,14 +163,14 @@ export default function Navigation() {
               <Text style={Styles.modalText}>{address} </Text>
               <Text style={Styles.modalText}>{description} </Text>
 
-              <TouchableHighlight
+              <TouchableOpacity
                 style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
               >
                 <Text style={Styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -277,19 +277,11 @@ export default function Navigation() {
 
   function FavoritesScreen() {
     const _onPressButton = (data) => {
-      alert(
-        "Performer: " +
-          data.item.name +
-          "\n" +
-          "Time: " +
-          data.item.time +
-          "\n" +
-          "Address: " +
-          data.item.address +
-          "\n" +
-          "Description: " +
-          data.item.description
-      );
+      setName(data.item.name);
+      setTime(data.item.time);
+      setAddress(data.item.address);
+      setDescription(data.item.description);
+      setModalVisible(true);
     };
 
     const renderFavorites = (data) => {
@@ -305,9 +297,38 @@ export default function Navigation() {
     };
 
     return (
-      <View style={{ flex: 1 }}>
-        <FlatList data={favorites} renderItem={renderFavorites} />
-      </View>
+      <>
+        <View style={{ flex: 1 }}>
+          <FlatList data={favorites} renderItem={renderFavorites} />
+        </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={Styles.centeredView}>
+            <View style={Styles.modalView}>
+              <Text style={Styles.modalText}>{name} </Text>
+              <Text style={Styles.modalText}>{time} </Text>
+              <Text style={Styles.modalText}>{address} </Text>
+              <Text style={Styles.modalText}>{description} </Text>
+
+              <TouchableOpacity
+                style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={Styles.textStyle}>Hide Modal</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </>
     );
   }
 
