@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Text,
+  ScrollView,
   View,
   TouchableHighlight,
   TouchableOpacity,
@@ -49,41 +50,57 @@ export default function Navigation() {
 
   function AboutScreen() {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>About!</Text>
-        <Text></Text>
-        <Image source={{uri: "http://www.porchfest.org/wp-content/uploads/2022/08/Porchfest-2022-square-1-700x700.png"}}
-        style={{width: 200, height: 200}}/>
-        <Text></Text>
-        <Text>Porchfest is a music festival held on the porches of the Fall Creek and 
-          Northside neighborhoods of Ithaca, NY.</Text> 
-        <Text></Text>
-        <Text>Porchfest began in 2007, inspired by some outdoor ukulele playing and a conversation 
-          between neighbors Gretchen Hildreth and Lesley Greene. They came up with the idea for it 
-          that day and gathered 20 bands to make it happen in September of that year. The number of 
-          bands has increased every year since then, with 185 in 2016.</Text>
+      <ScrollView>
+        <View>
+          <Image
+            source={{
+              uri: "http://www.porchfest.org/wp-content/uploads/2022/08/Porchfest-2022-square-1-700x700.png",
+            }}
+            style={{
+              width: 200,
+              height: 200,
+              alignSelf: "center",
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          />
+        </View>
+
+        <View style={{ marginLeft: 5 }}>
+          <Text>
+            Porchfest is a music festival held on the porches of the Fall Creek
+            and Northside neighborhoods of Ithaca, NY.
+          </Text>
           <Text></Text>
-        <Text>The team has grown too. Andy Adelewitz mercifully joined the organizing team in 2013. 
-          Lesley's husband Robbert wrote software to assist in scheduling the bands in 2014. We now 
-          get help on the day of Porchfest from several dozen volunteers.</Text>
+          <Text>
+            Porchfest began in 2007, inspired by some outdoor ukulele playing
+            and a conversation between neighbors Gretchen Hildreth and Lesley
+            Greene. They came up with the idea for it that day and gathered 20
+            bands to make it happen in September of that year. The number of
+            bands has increased every year since then, with 185 in 2016.
+          </Text>
           <Text></Text>
-        <Text>We have received sponsorship support from Ithaca Neighborhood Housing Services since 2011, 
-          which has been extremely helpful, as Lesley and Gretchen were paying out of pocket for most 
-          of the expenses before that. We receive generous donations from the community as well that 
-          we collect at Thompson Park during Porchfest and online through our website. And let's not 
-          forget to mention the many bands who play each year for their neighbors and visitors. That's 
-          what it's really all about!</Text>
-      </View>
+          <Text>
+            The team has grown too. Andy Adelewitz mercifully joined the
+            organizing team in 2013. Lesley's husband Robbert wrote software to
+            assist in scheduling the bands in 2014. We now get help on the day
+            of Porchfest from several dozen volunteers.
+          </Text>
+          <Text></Text>
+          <Text>
+            We have received sponsorship support from Ithaca Neighborhood
+            Housing Services since 2011, which has been extremely helpful, as
+            Lesley and Gretchen were paying out of pocket for most of the
+            expenses before that. We receive generous donations from the
+            community as well that we collect at Thompson Park during Porchfest
+            and online through our website. And let's not forget to mention the
+            many bands who play each year for their neighbors and visitors.
+            That's what it's really all about!{"\n"}
+          </Text>
+        </View>
+      </ScrollView>
     );
   }
-
-  //http://www.porchfest.org/wp-content/uploads/2022/08/Porchfest-2022-square-1-700x700.png
 
   function PerformersScreen() {
     const [search, setSearch] = useState("");
