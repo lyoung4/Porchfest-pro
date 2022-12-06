@@ -104,10 +104,11 @@ modalView: {
   shadowRadius: 3.84,
   elevation: 5
 },
-image: {
-  flex: 1,
-  width: '100%',
-  alignItems: "center"
-  
-}
+mapButton: {
+    marginTop: 0,
+    backgroundColor: "#6FD6F6",
+    borderRadius: 2,
+    padding: 10,
+    elevation: 2,
+    marginBottom: 5
 });

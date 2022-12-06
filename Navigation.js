@@ -299,28 +299,90 @@ export default function Navigation() {
       longitudeDelta: 0.01314,
     });
 
+    const [showAllMarkers, setShowAllMarkers] = useState(false)
+    const [showFavMarkers, setShowFavMarkers] = useState(false)
+    const [allText, setAllText] = useState("Show All")
+    const [favsText, setFavsText] = useState("Show Favorites")
+
+
     const onRegionChange = (region) => {
       setRegion(region);
     };
 
     return (
+      <>
+      <View>
+      <TouchableOpacity // was touchablehighlight
+            style={{
+              ...Styles.mapButton
+            }}
+            onPress={() => {
+              if (showAllMarkers == true) {
+                setShowAllMarkers(false);
+                setAllText("Show All")
+              } else {
+                setShowAllMarkers(true);
+                setAllText("Hide All")
+              }
+            }}
+          >
+            <Text style={{ alignSelf: "center", fontWeight: 'bold', color:'white'}}>
+              {allText}
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={{ ...Styles.mapButton}}
+            onPress={() => {
+              if (favorites.length == 0){
+                Alert.alert("You have not favorited any performers");
+              }
+              else if (showFavMarkers == true) {
+                setShowFavMarkers(false);
+                setFavsText("Show Favorites")
+              } else {
+                setShowFavMarkers(true);
+                setFavsText("Hide Favorites")
+              }
+            }}
+          >
+            <Text style={{ alignSelf: "center", fontWeight: 'bold',color:'white' }}>
+              {favsText}
+            </Text>
+          </TouchableOpacity>
+      </View>
       <View>
         <MapView
           style={Styles.map}
           region={region}
           onRegionChange={onRegionChange}
         >
-          {markers.map((marker, index) => (
-            <Marker
-              key={index}
-              coordinate={marker.latlng}
-              title={marker.name}
-              description={marker.address}
-              pinColor="blue"
-            />
-          ))}
+        
+          {showAllMarkers &&
+            markers.map((marker, index) => (
+              <Marker
+                key={index}
+                coordinate={marker.latlng}
+                title={marker.name}
+                description={marker.address}
+                pinColor="blue"
+              />
+            ))}
+
+          {showFavMarkers &&
+            favorites.map((marker, index) => (
+              <Marker
+                key={index}
+                coordinate={marker.latlng}
+                title={marker.name}
+                description={marker.address}
+                pinColor="yellow"
+              />
+            ))}
         </MapView>
       </View>
+      </>
+      
     );
   }
 
