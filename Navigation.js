@@ -9,7 +9,8 @@ import {
   TextInput,
   Alert,
   Modal,
-  Image
+  Image,
+  ImageBackground,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -25,26 +26,38 @@ export default function Navigation() {
 
   const performerData = require("./performers.json");
   const [favorites, setFavorites] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [time, setTime] = useState("");
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
 
   function HomeScreen({ navigation }) {
     return (
-      <View
+      <>
+        <ImageBackground source ={{uri: "https://theithacan.org/wp-content/uploads/2019/09/Porchfest-2019_KH.jpg"}}
+        style = {{flex:1}}>
+     <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Text>Home!</Text>
 
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => navigation.navigate("Porchfest Pro")}
           activeOpacity={0.6}
           underlayColor="red"
         >
           <Text style={Styles.button}>Start App!</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
+        </ImageBackground>
+
+      </>
+    
+        
     );
   }
 
@@ -105,11 +118,6 @@ export default function Navigation() {
   function PerformersScreen() {
     const [search, setSearch] = useState("");
     const [performers, setPerformers] = useState(performerData);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [name, setName] = useState("");
-    const [time, setTime] = useState("");
-    const [address, setAddress] = useState("");
-    const [description, setDescription] = useState("");
 
     useEffect(() => {
       // need useEffect to prevent infinite re-rendering
@@ -204,14 +212,14 @@ export default function Navigation() {
               <Text style={Styles.modalText}>{address} </Text>
               <Text style={Styles.modalText}>{description} </Text>
 
-              <TouchableHighlight
+              <TouchableOpacity
                 style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
               >
                 <Text style={Styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -318,19 +326,11 @@ export default function Navigation() {
 
   function FavoritesScreen() {
     const _onPressButton = (data) => {
-      alert(
-        "Performer: " +
-          data.item.name +
-          "\n" +
-          "Time: " +
-          data.item.time +
-          "\n" +
-          "Address: " +
-          data.item.address +
-          "\n" +
-          "Description: " +
-          data.item.description
-      );
+      setName(data.item.name);
+      setTime(data.item.time);
+      setAddress(data.item.address);
+      setDescription(data.item.description);
+      setModalVisible(true);
     };
 
     const renderFavorites = (data) => {
@@ -346,20 +346,107 @@ export default function Navigation() {
     };
 
     return (
-      <View style={{ flex: 1 }}>
-        <FlatList data={favorites} renderItem={renderFavorites} />
-      </View>
+      <>
+        <View style={{ flex: 1 }}>
+          <FlatList data={favorites} renderItem={renderFavorites} />
+        </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={Styles.centeredView}>
+            <View style={Styles.modalView}>
+              <Text style={Styles.modalText}>{name} </Text>
+              <Text style={Styles.modalText}>{time} </Text>
+              <Text style={Styles.modalText}>{address} </Text>
+              <Text style={Styles.modalText}>{description} </Text>
+
+              <TouchableOpacity
+                style={{ ...Styles.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={Styles.textStyle}>Hide Modal</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </>
     );
   }
 
   function Tabs() {
     return (
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="About" component={AboutScreen} />
-        <Tab.Screen name="Performers" component={PerformersScreen} />
-        <Tab.Screen name="Schedule" component={ScheduleScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Favorites" component={FavoritesScreen} />
+        <Tab.Screen
+          name="About"
+          component={AboutScreen}
+          options={{
+            // tabBarActiveTintColor: "#6FD6F6",
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused
+                ? "information-circle"
+                : "information-circle-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Performers"
+          component={PerformersScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "people" : "people-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Schedule"
+          component={ScheduleScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "ios-calendar" : "ios-calendar-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "map" : "map-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
+        <Tab.Screen
+          name="Favorites"
+          component={FavoritesScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName = focused ? "star" : "star-outline";
+              return <Ionicons name={iconName} color={color} size={size} />;
+            },
+            tabBarActiveTintColor: "#6FD6F6",
+            tabBarInactiveTintColor: "#6FD6F6",
+          }}
+        />
       </Tab.Navigator>
     );
   }

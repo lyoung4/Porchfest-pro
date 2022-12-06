@@ -4,18 +4,19 @@ export default styles = StyleSheet.create({
   container: {
     alignItems: "center",
     marginTop: 100,
+
   },
   button: {
-    color: "blue",
+    color: "white",
     fontWeight: "bold",
     fontSize: 30,
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#6FD6F6",
     padding: 10,
     margin: 50,
-    borderWidth: 4,
+    borderWidth: 2,
     borderStyle: "solid",
-    borderColor: "red",
+    borderColor: "white",
   },
   result: {
     color: "red",
@@ -73,6 +74,7 @@ export default styles = StyleSheet.create({
   openButton: {
     marginTop: 0,
     backgroundColor: "#F194FF",
+    textAlign: "centered",
     borderRadius: 2,
     padding: 10,
     elevation: 2
@@ -101,5 +103,11 @@ modalView: {
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   elevation: 5
+},
+image: {
+  flex: 1,
+  width: '100%',
+  alignItems: "center"
+  
 }
 });
