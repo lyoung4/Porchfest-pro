@@ -9,6 +9,7 @@ import {
   Alert,
   Modal,
   Image,
+  ImageBackground,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -32,23 +33,30 @@ export default function Navigation() {
 
   function HomeScreen({ navigation }) {
     return (
-      <View
+      <>
+        <ImageBackground source ={{uri: "https://theithacan.org/wp-content/uploads/2019/09/Porchfest-2019_KH.jpg"}}
+        style = {{flex:1}}>
+     <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Text>Home!</Text>
 
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => navigation.navigate("Porchfest Pro")}
           activeOpacity={0.6}
           underlayColor="red"
         >
           <Text style={Styles.button}>Start App!</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
+        </ImageBackground>
+
+      </>
+    
+        
     );
   }
 
