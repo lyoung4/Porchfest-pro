@@ -111,4 +111,5 @@ mapButton: {
     padding: 10,
     elevation: 2,
     marginBottom: 5
+}
 });
