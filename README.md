@@ -9,3 +9,22 @@ The core features of this app includes:
 
 
 ![porchfest-screens](https://i.imgur.com/gvhd7f2.png)
+
+
+## Tech Stack
+- Languages: JavaScript
+- Frameworks/Libraries: React Native, React Navigation, Expo
+- Tools: Git/GitHub
+
+
+## Run the App
+
+1. Clone the repo:
+   git clone https://github.com/lyoung4/Porchfest-pro.git
+2. Navigate to the folder:
+   cd Porchfest-pro
+3. Install dependencies:
+   npm install
+4. Start the app:
+   npx expo start
+5. Open on your phone using Expo Go or in an emulator
