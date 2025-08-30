@@ -22,8 +22,7 @@ export default styles = StyleSheet.create({
     color: "red",
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    flex: 1,
   },
   performerList: {
     flexDirection: "row",
