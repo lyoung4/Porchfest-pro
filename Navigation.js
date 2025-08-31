@@ -491,7 +491,7 @@ export default function Navigation() {
         />
         <Tab.Screen
           name="Map"
-          component={TestMap}
+          component={testMap}
           options={{
             tabBarIcon: ({ focused, color, size }) => {
               let iconName = focused ? "map" : "map-outline";
