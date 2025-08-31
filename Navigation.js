@@ -1,3 +1,5 @@
+import TestMap from "./TestMap.js";  // import the test map
+
 import React, { useEffect, useState } from "react";
 import {
   Text,
@@ -489,7 +491,7 @@ export default function Navigation() {
         />
         <Tab.Screen
           name="Map"
-          component={MapScreen}
+          component={TestMap}
           options={{
             tabBarIcon: ({ focused, color, size }) => {
               let iconName = focused ? "map" : "map-outline";
