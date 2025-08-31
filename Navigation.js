@@ -311,6 +311,7 @@ export default function Navigation() {
 
     return (
       <>
+      <View style={{ flex: 1 }}>
       <View>
       <TouchableOpacity // was touchablehighlight
             style={{
@@ -351,9 +352,10 @@ export default function Navigation() {
             </Text>
           </TouchableOpacity>
       </View>
-      <View style= {Styles.mapContainer}>
+              
+      <View style= {{ flex: 1}}>
         <MapView
-          style={Styles.map}
+          style={{flex: 1}}
           region={region}
           onRegionChange={onRegionChange}
         >
