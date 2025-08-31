@@ -351,7 +351,7 @@ export default function Navigation() {
             </Text>
           </TouchableOpacity>
       </View>
-      <View style= {{flex: 1}}>
+      <View style= {Styles.mapContainer}>
         <MapView
           style={Styles.map}
           region={region}
